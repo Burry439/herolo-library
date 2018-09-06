@@ -1,0 +1,17 @@
+
+
+.example-card {
+    margin: 40px;
+    width: 250px;
+    display: inline-block;
+    
+  }
+
+
+
+.addBook
+ {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}

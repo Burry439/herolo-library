@@ -1,0 +1,30 @@
+<form #f="ngForm" >
+    <label class="label" for="">Book title</label>
+
+     <input type="text" ngModel #title=ngModel name="title" class="form-control input-sm" placeholder="Book Title"  required>
+      <span *ngIf="!title.valid && title.touched">please add a title</span><br>
+
+
+      <label class="label" for="">Book Author</label>
+
+      <input type="text" ngModel #author=ngModel name="author" class="form-control input-sm" placeholder="Book Author"  required>
+      <span *ngIf="!author.valid && author.touched">please add a author</span><br>
+        <br>
+
+        <label class="label" for="">Book Image (Not Required)</label>
+
+        <input type="text" ngModel #image name="image" class="form-control input-sm" placeholder="please add an image link" >
+          <br>
+  
+
+        <label class="label">Edit Published Date</label>
+        <input type="date" ngModel #published=ngModel name="published" class="form-control input-sm" placeholder="Published Date"  required>
+      <span *ngIf="!published.valid && published.touched">please enter a published date</span><br>
+
+
+
+       <button [disabled]="f.invalid" (click)="addBook(title.value, author.value,published.value, image.value)" class="btn btn-primary">save</button>              
+       <button  class="btn btn-danger" (click)="cancel()">cancel</button>
+
+
+  </form>

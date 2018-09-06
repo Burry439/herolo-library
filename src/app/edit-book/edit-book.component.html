@@ -1,0 +1,45 @@
+
+<div class="container">
+    <mat-card  class="example-card">
+    
+            
+      <mat-card-header>
+    
+        <mat-card-subtitle> By: {{data.book.volumeInfo.authors}},</mat-card-subtitle>
+        <mat-card-subtitle> Published:{{data.book.volumeInfo.publishedDate}}</mat-card-subtitle>
+    
+        <div>
+      </div>
+      </mat-card-header>    
+      <mat-card-actions>
+          <form #f="ngForm" >
+            <label class="label" for="">Edit title</label>
+
+             <input type="text" ngModel #title=ngModel name="title" class="form-control input-sm" placeholder="{{data.book.volumeInfo.title}}"  required>
+              <span *ngIf="!title.valid && title.touched">please add a new title</span><br>
+
+
+              <label class="label" for="">Edit Author</label>
+
+              <input type="text" ngModel #author=ngModel name="author" class="form-control input-sm" placeholder="{{data.book.volumeInfo.authors}}"  required>
+              <span *ngIf="!author.valid && author.touched">please add a new author</span><br>
+                <br>
+
+                <label class="label">Edit Published Date</label>
+
+
+                <input type="date" ngModel #published=ngModel name="published" class="form-control input-sm" placeholder="edit published date"  required>
+              <span *ngIf="!published.valid && published.touched">please enter a valid date</span><br>
+
+
+
+               <button [disabled]="f.invalid" (click)="saveChanges(title.value, author.value,published.value)" class="btn btn-primary">save</button>              
+               <button  class="btn btn-danger" (click)="cancel()">cancel</button>
+
+
+          </form>
+    
+      </mat-card-actions>
+    </mat-card>
+    
+    </div>
