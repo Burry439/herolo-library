@@ -1,7 +1,7 @@
 
 
 .example-card {
-    margin: 40px;
+    margin: 0px 15px 20px 15px;
     width: 250px;
     display: inline-block;
     
@@ -14,4 +14,35 @@
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
+}
+
+@media only screen and (max-width: 1199px) {
+
+  .example-card {
+    margin-left:55px;
+  }
+
+}
+
+@media only screen and (max-width: 767px) {
+
+  .example-card {
+    width: 350px;
+    margin-left:100px;
+  }
+
+}
+
+@media only screen and (max-width: 460px) {
+
+  .example-card {
+    margin-left:40px;
+  }
+}
+
+@media only screen and (max-width: 360px) {
+
+  .example-card {
+    margin-left:20px;
+  }
 }
