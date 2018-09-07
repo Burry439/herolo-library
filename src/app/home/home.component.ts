@@ -29,13 +29,12 @@ export class HomeComponent implements OnInit {
 
   books:any = []
 
-
   checkForDuplicateTitle(title):boolean
   { 
 
     let duplicate : boolean = true
 
-    this.books.map(function (book) 
+    this.books.map((book) =>
     {   
 
         if (book.volumeInfo.title == title) duplicate = false    
@@ -65,7 +64,7 @@ export class HomeComponent implements OnInit {
 
           if(!res)
           {
-             return
+             return null
           }
 
           else if(res && this.checkForDuplicateTitle(res.title))
@@ -80,7 +79,6 @@ export class HomeComponent implements OnInit {
             this.messageService.add({severity:'error', summary:'Duplicate Title', detail:'A Book with the title "' + res.title + '" already exists'});
           }
     })
-
   }
 
 
@@ -88,20 +86,15 @@ export class HomeComponent implements OnInit {
   {
     let dialog = this.addBookDialog.open(AddBookComponent)
     dialog.afterClosed().subscribe((res)=>{
-
-
-
         if(res && !this.checkForDuplicateTitle(res.volumeInfo.title))
         { 
           this.messageService.add({severity:'error', summary:'Duplicate Title', detail:'A Book with the title "' + res.volumeInfo.title + '" already exists'});
-        } 
-
+        }
         else if (res)
         { 
           this.messageService.add({severity:'success', summary:'Book Added', detail:'You added a new book "' + res.volumeInfo.title + '"'});
           this.books.unshift(res)
         }
-
     })
   }
 
@@ -121,11 +114,10 @@ export class HomeComponent implements OnInit {
 
 
   ngOnInit() {
-
-      this.booksService.getBooksAtStart().subscribe((res:any)=>{
+    this.booksService.getBooksAtStart().subscribe((res:any)=>{
+      console.log(res)
         this.books = res.items
-      })
-
+    })    
   }
 
 }
