@@ -1,23 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BooksService } from '../services/books.service';
 import { EditBookComponent }  from '../edit-book/edit-book.component'
 import { AddBookComponent }  from '../add-book/add-book.component'
 import { DeleteComponent }  from '../delete/delete.component'
-
 import {MessageService} from 'primeng/components/common/messageservice';
-
-
 import {MatDialog} from '@angular/material';
-
-
-
+import {Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
 
   constructor(private booksService : BooksService,   
               private editDialog: MatDialog,
@@ -27,7 +22,12 @@ export class HomeComponent implements OnInit {
             ) { }
              
 
-  books:any = []
+    books:any = []
+    getBooksSub:Subscription
+    editBookSub:Subscription
+    deleteBookSub:Subscription
+    addBookSub:Subscription
+
 
   checkForDuplicateTitle(title):boolean
   { 
@@ -36,31 +36,29 @@ export class HomeComponent implements OnInit {
 
     this.books.map((book) =>
     {   
-
-        if (book.volumeInfo.title == title) duplicate = false    
+        if (book.volumeInfo.title.toLowerCase().replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '') == title.toLowerCase()) duplicate = false    
     });
 
     if(duplicate) return true
   
-    else 
-    { 
-      return false
-    }
-    
+    else return false
+  
   }
 
 
   openEditDialog(index)
   { 
 
-    let dialog = this.editDialog.open(EditBookComponent, {
-    
-      data: {
+    let dialog = this.editDialog.open(EditBookComponent, 
+    { 
+      data: 
+      {
         book: this.books[index]
       }
     })
 
-    dialog.afterClosed().subscribe((res)=>{
+    this.editBookSub = dialog.afterClosed().subscribe((res)=>
+    {
 
           if(!res)
           {
@@ -85,7 +83,8 @@ export class HomeComponent implements OnInit {
   addNewBook()
   {
     let dialog = this.addBookDialog.open(AddBookComponent)
-    dialog.afterClosed().subscribe((res)=>{
+    this.addBookSub = dialog.afterClosed().subscribe((res)=>
+    {
         if(res && !this.checkForDuplicateTitle(res.volumeInfo.title))
         { 
           this.messageService.add({severity:'error', summary:'Duplicate Title', detail:'A Book with the title "' + res.volumeInfo.title + '" already exists'});
@@ -102,7 +101,8 @@ export class HomeComponent implements OnInit {
   deleteBook(i)
   {
      let dialog = this.deleteDialog.open(DeleteComponent)
-     dialog.afterClosed().subscribe((res)=>{
+     this.deleteBookSub = dialog.afterClosed().subscribe((res)=>
+     {
        if(res)
        {  
          this.messageService.add({severity:'success', summary:'Book Deleted', detail:'You deleted the book "' + this.books[i].volumeInfo.title + '"'});
@@ -112,12 +112,21 @@ export class HomeComponent implements OnInit {
   }
 
 
-
-  ngOnInit() {
-    this.booksService.getBooksAtStart().subscribe((res:any)=>{
+  ngOnInit() 
+  {
+    this.getBooksSub = this.booksService.getBooksAtStart().subscribe((res:any)=>
+    {
       console.log(res)
         this.books = res.items
     })    
   }
 
+
+  ngOnDestroy()
+  {     
+      this.getBooksSub.unsubscribe()
+      this.editBookSub.unsubscribe()
+      this.getBooksSub.unsubscribe()
+      this.editBookSub.unsubscribe()
+  }
 }

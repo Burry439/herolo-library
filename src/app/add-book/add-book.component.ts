@@ -15,14 +15,10 @@ export class AddBookComponent implements OnInit {
 
   addBook(title, author,published, image)
   { 
-
-
-
-
       let newBook = {
         id :  Math.random().toString(12).replace('0.', ''),
         volumeInfo: {
-          title : title,
+          title : title.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, ''),
           authors : author,
           imageLinks:{thumbnail:image},
           publishedDate: published

@@ -1,48 +1,169 @@
+.jumbotron
+{
+  font-family: 'Lobster', cursive;
+  text-align:center;
+}
 
 
-.example-card {
-    margin: 0px 15px 20px 15px;
-    width: 250px;
-    display: inline-block;
-    
-  }
+.example-card 
+{
+  margin: 0px 15px 50px 15px;
+  width: 250px;
+  height: 450px;
+  display: inline-block;
+  border-radius: 10%;
+  background-color:#F0F0F0;
+}
 
+ 
+.example-card:hover
+{
+  transform: scale(1.05);
+}
+
+
+.title
+{
+  font-family: 'Carter One', cursive;
+}
+
+.author
+{
+  font-family: 'Marcellus SC', serif;
+}
+
+.published
+{
+  font-family: 'Quicksand', sans-serif;
+}
+
+.id
+{
+  margin-bottom:30px;
+  font-size: 12px;
+
+}
 
 
 .addBook
- {
+{
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
+  font-family: 'Chewy', cursive;
+  border-radius:40px;
+  width: 200px;
 }
 
-@media only screen and (max-width: 1199px) {
 
-  .example-card {
+
+.edit-btn
+{ 
+  width: 80px;
+  position: absolute;
+  left:  30px;
+  bottom:   0;
+  border-radius:40px;
+}
+
+
+.delete-btn
+{ 
+  width: 80px;
+  position: absolute;
+  left: 120px;
+  bottom: 0;
+  border-radius:40px;
+}
+
+
+@media only screen and (max-width: 1199px) 
+{
+  
+  .example-card 
+  {
     margin-left:55px;
   }
 
 }
 
-@media only screen and (max-width: 767px) {
 
-  .example-card {
+
+
+
+@media only screen and (max-width: 767px) 
+{
+
+  .example-card 
+  {
     width: 350px;
     margin-left:100px;
   }
 
+  .edit-btn
+  { 
+    width: 100px;
+    left: 60px;
+   
+  }
+  
+  
+  .delete-btn
+  {   
+    width: 100px;
+    left: 160px;
+  }
+
+
 }
 
-@media only screen and (max-width: 460px) {
+@media only screen and (max-width: 460px) 
+{
 
-  .example-card {
+  .example-card 
+  {
     margin-left:40px;
+  }
+
+}
+
+@media only screen and (max-width: 360px) 
+{
+
+  .example-card 
+  {
+    margin-left:20px;
   }
 }
 
-@media only screen and (max-width: 360px) {
 
-  .example-card {
-    margin-left:20px;
+@media only screen and (max-width: 321px) 
+{
+
+  .edit-btn
+  { 
+    left: 40px;
+  }
+
+
+  .delete-btn
+  {   
+    left: 130px;
+  }
+}
+
+@media only screen and (max-width: 300px) 
+{
+  .edit-btn
+  { 
+    left: 10px;
+    width: 80px;
+  }
+
+
+  .delete-btn
+  {   
+    left: 100px;
+    width:80px;
   }
 }

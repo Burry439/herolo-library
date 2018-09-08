@@ -1,15 +1,18 @@
 <p-growl></p-growl>
 
   <div class="jumbotron"> 
-      <h1 style="text-align:center" >Welcome to</h1>      
-
-      <h1 style="text-align:center" >Herolo Library</h1>      
-      
+      <h1>Welcome to</h1>      
+      <h1>Herolo Library</h1>      
     </div>
+
+
 
         <button  class="btn btn-lg btn-primary addBook" (click)="addNewBook()">Add New Book</button>
 
-<div *ngIf="books.length > 0" class="container" style="margin-top:150px;">
+
+
+
+<div class="container" style="margin-top:150px;">
   <div class="row">
 
 <mat-card class="example-card" *ngFor="let  book of books let i = index ;" >
@@ -17,38 +20,32 @@
         
   <mat-card-header>
 
-    <mat-card-subtitle>Title: {{book.volumeInfo.title | titlecase | removeSpecialChars }} 
-      <span *ngIf="!book.volumeInfo.title">None provided</span>
-      <hr>
-    </mat-card-subtitle>
+    <mat-card-title> 
+      <strong> Title: </strong> <span class="title">{{book.volumeInfo.title | titlecase | removeSpecialChars  }}</span> 
+      <span *ngIf="!book.volumeInfo.title" class="title">None provided</span>
+    </mat-card-title>
 
-   
-
-    <mat-card-subtitle> Id:{{book.id}}  <hr> </mat-card-subtitle>
     
-
-
-
-    <mat-card-subtitle> By:  {{book.volumeInfo.authors}}
-        <span *ngIf="!book.volumeInfo.authors">None provided</span>
-        <hr>
+    <mat-card-subtitle> By: <span class="author">{{book.volumeInfo.authors ? book.volumeInfo.authors[0] : book.volumeInfo.authors}}</span>
+        <span *ngIf="!book.volumeInfo.authors" class="author" >None provided</span>
     </mat-card-subtitle>
-
-
-    <mat-card-subtitle> Published:{{book.volumeInfo.publishedDate}}
-        <span *ngIf="!book.volumeInfo.publishedDate">None provided</span>
-    </mat-card-subtitle>
-
-  
-
-
 
   </mat-card-header>
+
+
   <img *ngIf="book.volumeInfo.imageLinks" mat-card-image [src]="book.volumeInfo.imageLinks.thumbnail" onError="this.onerror=null;this.src='https://cdn.browshot.com/static/images/not-found.png'" height="142" width="142" class="event-image" alt="not found">
-  <img *ngIf="!book.volumeInfo.imageLinks" src="https://cdn.browshot.com/static/images/not-found.png" height="142" width="142" class="event-image" alt="not found">
+  <img *ngIf="!book.volumeInfo.imageLinks" mat-card-image src="https://cdn.browshot.com/static/images/not-found.png" height="142" width="142" class="event-image" alt="not found">
+
+
+  <p style="font-size: 15px"> Published: <span class="published">{{ book.volumeInfo.publishedDate | date }}</span>
+    <span *ngIf="!book.volumeInfo.publishedDate" class="published">None provided</span>
+</p>
+
+<p class="id"> Id:{{book.id }}</p>
+
   <mat-card-actions>
-      <button  class="btn btn-primary"  (click)="openEditDialog(i)">Edit</button>
-      <button  class="btn btn-danger" style="margin-left:10px;"  (click)=deleteBook(i)>Delete</button>
+      <button  class="btn  btn-primary edit-btn"  (click)="openEditDialog(i)">Edit</button>
+      <button  class="btn  btn-danger delete-btn" style="margin-left:10px;"  (click)=deleteBook(i)>Delete</button>
   </mat-card-actions>
 
 </mat-card>

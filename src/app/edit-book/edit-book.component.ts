@@ -6,15 +6,17 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
   templateUrl: './edit-book.component.html',
   styleUrls: ['./edit-book.component.css']
 })
-export class EditBookComponent implements OnInit {
+export class EditBookComponent implements OnInit 
+{
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
-                private dialogRef: MatDialogRef<EditBookComponent>) { }
+                private dialogRef: MatDialogRef<EditBookComponent>
+              ) { }
 
 
   saveChanges(title,author,published)
   {
-      this.dialogRef.close({title:title,author:author,published:published})
+      this.dialogRef.close({title:title.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, ''),author:author,published:published})
   }
 
   cancel()
@@ -22,9 +24,8 @@ export class EditBookComponent implements OnInit {
     this.dialogRef.close()
   }
 
-  ngOnInit() {
-
-
+  ngOnInit() 
+  {
   }
 
 }
