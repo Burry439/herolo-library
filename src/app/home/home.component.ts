@@ -116,7 +116,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   {
     this.getBooksSub = this.booksService.getBooksAtStart().subscribe((res:any)=>
     {
-      console.log(res)
         this.books = res.items
     })    
   }
