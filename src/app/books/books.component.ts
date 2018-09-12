@@ -50,11 +50,11 @@ export class BooksComponent implements OnInit, OnDestroy{
           else if(this.checkForDuplicateTitle(res.volumeInfo.title).length == 0)
           {
             this.books.unshift(res)
-            this.messageService.add({severity:'success', summary:'Book Added', detail:'You added a new book "' + res.volumeInfo.title + '"'});
+            this.messageService.add({severity:'success', summary:'Book Added', detail:'You added a new book "' + this.removeSpecialChars.transform(res.volumeInfo.title) + '"'});
           }
           else
           {
-             this.messageService.add({severity:'error', summary:'Duplicate Title', detail:'A Book with the title "' + res.volumeInfo.title + '" already exists'});
+             this.messageService.add({severity:'error', summary:'Duplicate Title', detail:'A Book with the title "' + this.removeSpecialChars.transform(res.volumeInfo.title) + '" already exists'});
           }
     })
   }
@@ -65,14 +65,14 @@ editBook(book, index)
 {
     if(this.checkForDuplicateTitle(book.title).length == 0)
     { 
-       this.messageService.add({severity:'success', summary:'Book Edited', detail:'You Edited the book ' + this.books[index].volumeInfo.title });
+       this.messageService.add({severity:'success', summary:'Book Edited', detail:'You Edited the book ' +  this.removeSpecialChars.transform(this.books[index].volumeInfo.title) });
        this.books[index].volumeInfo.title = book.title
        this.books[index].volumeInfo.authors = book.author,
-       this.books[index].volumeInfo.publishedDate =book.published
+       this.books[index].volumeInfo.publishedDate = book.published
     }  
     else
     {
-       this.messageService.add({severity:'error', summary:'Duplicate Title', detail:'A Book with the title "' + book.title + '" already exists'});
+       this.messageService.add({severity:'error', summary:'Duplicate Title', detail:'A Book with the title "' + this.removeSpecialChars.transform(book.title)  + '" already exists'});
     }
 }
 
@@ -81,7 +81,7 @@ editBook(book, index)
 deleteBook(index)
 {
   this.books.splice(index,1)
-  this.messageService.add({severity:'success', summary:'Book Deleted', detail:'You deleted the book "' + this.books[index].volumeInfo.title + '"'});
+  this.messageService.add({severity:'success', summary:'Book Deleted', detail:'You deleted the book "' + this.removeSpecialChars.transform(this.books[index].volumeInfo.title) + '"'});
 
 }
 
