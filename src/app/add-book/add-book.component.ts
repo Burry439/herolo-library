@@ -18,7 +18,7 @@ export class AddBookComponent implements OnInit {
       let newBook = {
         id :  Math.random().toString(12).replace('0.', ''),
         volumeInfo: {
-          title : title.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, ''),
+          title : title,
           authors : author,
           imageLinks:{thumbnail:image},
           publishedDate: published

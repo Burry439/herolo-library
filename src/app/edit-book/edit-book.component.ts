@@ -16,7 +16,7 @@ export class EditBookComponent implements OnInit
 
   saveChanges(title,author,published)
   {
-      this.dialogRef.close({title:title.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, ''),author:author,published:published})
+      this.dialogRef.close({title:title,author:author,published:published})
   }
 
   cancel()
